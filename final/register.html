@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/user.css" type="text/css" rel="stylesheet" />
+	<title>register</title>
+	<style>
+		@media screen and (max-width: 420px) {
+			html,body{
+				background: #f66a85;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="login-box">
+
+        <h1>Register</h1>
+<!--		<form action="" method="post">-->
+			<label class="form-inline">
+				<div class="form-inline-font">
+					countant :
+				</div>
+				<div class="form-inline-input">
+					<input type="text" name="countant"/>
+				</div>
+			</label>
+            <label class="form-inline">
+                <div class="form-inline-font">
+                    username :
+                </div>
+                <div class="form-inline-input">
+                    <input type="text" name="username"/>
+                </div>
+            </label>
+			<label class="form-inline">
+				<div class="form-inline-font">
+					password :
+				</div>
+				<div class="form-inline-input">
+					<input type="password" name="password" />
+				</div>
+			</label>
+            <label class="form-inline">
+                <div class="form-inline-font">
+					password :
+                </div>
+                <div class="form-inline-input">
+                    <input type="password" name="passwords"/>
+                </div>
+            </label>
+			<label class="form-inline">
+				<div class="form-inline-font">
+					verify :
+                </div>
+				<div class="form-inline-input">
+                    <div class="code-box" id="code-box">
+                        <input type="text" name="code" class="code-input" />
+                        <p></p>
+                        <span>>>></span>
+                    </div>
+				</div>
+			</label>
+			
+			<div class="login-btn">
+				<div class="user-btn-link">
+					<a href="login.html">Registered, go to login</a>
+				</div>
+				<button id="submit" type="submit">Register</button>
+			</div>
+<!--		</form>-->
+	</div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/login.js"></script>
+<script>
+
+    new moveCode("");
+    $('#submit').click(function() {
+        var countant = $("input[name='countant']").val();
+        var username = $("input[name='username']").val();
+        var password = $("input[name='password']").val();
+        var passwords = $("input[name='passwords']").val();
+        var yanzheng = $(".code-box p").text();
+
+        if(!countant.trim()){
+            alert("Please enter your countant")
+            return false;
+        }
+
+        if(!username.trim()){
+            alert("Please enter your username")
+            return false;
+        }
+
+        if(!password.trim()){
+            alert("Please enter your password")
+            return false;
+        }
+
+        if(!passwords.trim()){
+            alert("Please enter the password again")
+            return false;
+        }
+
+        if(password.trim() !== passwords.trim()){
+            alert("Inconsistent password input")
+            return false;
+        }
+
+        if(yanzheng !== "success"){
+            alert("Please slide to verify")
+            return false;
+        }
+
+        $.ajax({
+			url: "reg.php",
+			type: "post",
+			data: {
+                countant: countant,
+				username: username,
+				password: password
+			},
+			success: function (res) {
+			    var res = JSON.parse(res);
+				if(res.code == 1){
+                    alert(res.msg)
+					setTimeout(function () {
+                        window.location.href="login.html";
+                    },1000)
+				}else{
+                    alert(res.msg)
+				}
+            }
+		})
+    });
+
+</script>
+</html>

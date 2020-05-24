@@ -1,0 +1,64 @@
+@charset "utf-8";
+.alogo{
+    padding: 10px;
+}
+#categories h2{
+    padding: 10px 0;
+}
+#categories .item{}
+#categories .item img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+#categories .item figcaption{
+    text-align: center;
+    margin-top: 6px
+}
+
+.addprods .item img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.addprods .item figcaption{
+    text-align: center;
+    margin-top: 6px
+}
+
+.aflex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aabout{
+    margin-top: 20px;
+}
+.aabout p{
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+@media screen and (max-width: 420px) {
+    #categories .item{
+        margin-bottom: 20px;
+    }
+    #categories .item img{
+        height: 200px;
+    }
+    .aneir{
+        padding: 15px;
+    }
+    .car-box{
+        height: auto;
+    }
+    .pay-box{
+        height: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .pay-box > div > input{
+        width: auto;
+    }
+
+}

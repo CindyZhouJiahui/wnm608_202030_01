@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/user.css" type="text/css" rel="stylesheet" />
+	<title>Admin Login</title>
+</head>
+<body>
+	<div class="login-box">
+		<h1>Admin Login</h1>
+		<!--<form action="" method="get">-->
+			<label class="form-inline">
+				<div class="form-inline-font">
+					username :
+				</div>
+				<div class="form-inline-input">
+					<input type="text" name="user" placeholder="admin"/>
+				</div>
+			</label>
+			<label class="form-inline">
+                <div class="form-inline-font">
+                    password :
+                </div>
+                <div class="form-inline-input">
+                    <input type="password" name="psw" placeholder="123456"/>
+                </div>
+            </label>
+			<label class="form-inline">
+				<div class="form-inline-font">
+                    verify :
+				</div>
+				<div class="form-inline-input">
+					<div class="code-box" id="code-box">
+						<p></p>
+						<span>>>></span>
+					</div>
+				</div>
+			</label>
+			
+			<div class="login-btn">
+				<button id="submit" type="submit">Login</button>
+			</div>
+		<!--</form>-->
+	</div>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/login.js"></script>
+<script>
+
+    new moveCode("");
+    $('#submit').click(function() {
+        var user = $("input[name='user']").val();
+        var psw = $("input[name='psw']").val();
+        var yanzheng = $(".code-box p").text();
+
+        if(!user.trim()){
+            alert("Please enter your username")
+            return false;
+        }
+
+        if(!psw.trim()){
+            alert("Please enter your password")
+            return false;
+        }
+
+        if(yanzheng !== "success"){
+            alert("Please slide to verify")
+            return false;
+        }
+
+        $.ajax({
+            url: "admin_login.php",
+            type: "post",
+            data: {
+                user: user,
+                psw: psw
+            },
+            success: function (res) {
+                var res = JSON.parse(res);
+                if(res.code == 1){
+                    alert(res.msg)
+                    setTimeout(function () {
+                        window.location.href="admin.php";
+                    },1000)
+                }else if(res.code == 0){
+                    alert(res.msg)
+				}else{
+                    alert("error")
+                }
+            }
+        })
+    });
+
+    $.ajax({
+        url: "admin_login.php",
+        type: "get",
+        data: {
+
+        },
+        success: function (res) {
+            var res = JSON.parse(res);
+            if(res.code == 1){
+                window.location.href="admin.php"; //在原有窗口打开
+            }
+        }
+    })
+
+</script>
+</html>
